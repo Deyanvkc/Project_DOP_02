@@ -1,19 +1,10 @@
-# Configuration pour jenkins
-
 jenkins:
-  systemMessage: "Welcome to the ChocolatinePowered Marvin Jenkins Instance"
-  #globalNodeProperties:
-    #- envVars:
-        #env:
-          #- key: VARIABLE1
-            #value: foo
-          #- key: VARIABLE2
-            #value: bar
+  # Message système
+  systemMessage: "Welcome to the ChocolatinePowered Marvin Jenkins Instance."
 
-  # On définit les user en local
+  # Définitions des utilisateurs en local
   securityRealm:
     local:
-      # On désactive l'inscription
       allowsSignup: false
       users:
         - id: chocolateen
@@ -29,101 +20,78 @@ jenkins:
           name: Nassim
           password: ${USER_NASSO_PASSWORD}
 
-  # Authorization strategy en roleBased
+  # Configuration des roles et autorisations globaux
   authorizationStrategy:
     roleBased:
-      # Définition des roles globaux
       roles:
         global:
-          # Role Admin
+          # Role Administrateur
           - name: "admin"
             description: "Marvin master"
             permissions:
               - "Overall/Administer"
             entries:
-              - user: "chocolateen" # ou Hugo
-          # Role Ape
+              - user: "chocolateen"
+          # Role APE
           - name: "ape"
             description: "Pedagogical team member"
             permissions:
-              - "Workspaces/Read"
               - "Job/Build"
+              - "Job/Workspace"
             entries:
-              - user: "i_dont_know" # ou Jeremy
+              - user: "i_dont_know"
           # Role Gorilla
           - name: "gorilla"
             description: "Group Obsessively Researching Innovation Linked to Learning and Accomplishment"
             permissions:
-              - "Workspaces/Read"
-              - "Job/Configure"
               - "Job/Build"
+              - "Job/Workspace"
+              - "Job/Configure"
               - "Job/Delete"
               - "Job/Move"
               - "Job/Create"
             entries:
-              - user: "vaugie_g" # ou Garance
+              - user: "vaugie_g"
           # Role Assistant
           - name: "assist"
             description: "Assistant"
             permissions:
-              - "Workspaces/Read"
               - "Job/Read"
+              - "Job/Workspace"
             entries:
-              - user: "nasso" # ou Nassim
+              - user: "nasso"
 
-        # Définir les items dont le Tools
-        items:
-          - name: "Tools"
-            description: "Folder for miscellaneous tools."
-            pattern: "./"
-            #permissions:
-              #- "Job/Configure"
-              #- "Job/Build"
-              #- "Job/Delete"
-            #entries:
-              #- user: "user1"
-              #- user: "user2"
-
-        #agents:
-          #- name: "Agent1"
-            #description: "Agent 1"
-            #pattern: "agent1"
-            #permissions:
-              #- "Agent/Build"
-            #entries:
-              #- user: "user1"
-
-  # Documentation Template a partir d'ici
-  nodes:
-    - permanent:
-        name: "static-agent"
-        remoteFS: "/home/jenkins"
-        launcher:
-          inbound:
-            workDirSettings:
-              disabled: true
-              failIfWorkDirIsMissing: false
-              internalDir: "remoting"
-              workDirPath: "/tmp"
-
-  slaveAgentPort: 50000
-
+# Configuration de l'outil Git
 tool:
   git:
     installations:
       - name: git
         home: /usr/local/bin/git
 
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-          - basicSSHUserPrivateKey:
-              scope: SYSTEM
-              id: ssh_with_passphrase_provided
-              username: ssh_root
-              passphrase: ${SSH_KEY_PASSWORD}
-              description: "SSH passphrase with private key file. Private key provided"
-              privateKeySource:
-                directEntry:
-                  privateKey: ${SSH_PRIVATE_KEY}
+# Identification par clé SSH et password SSH
+#credentials:
+  #system:
+    #domainCredentials:
+      #- credentials:
+          #- basicSSHUserPrivateKey:
+              #scope: SYSTEM
+              #id: ssh_with_passphrase_provided
+              #username: ssh_root
+              #passphrase: ${SSH_KEY_PASSWORD}
+              #description: "SSH passphrase with private key file. Private key provided"
+              #privateKeySource:
+                #directEntry:
+                  #privateKey: ${SSH_PRIVATE_KEY}
+
+# Unclassified est pour les informations globales/par défaut
+unclassified:
+  # Adresse mail de l'admin pour les notifications
+  location:
+    adminAddress: "deyan.vukic@epitech.eu"
+  # Chargement des jobs
+  jobs:
+    load: true
+    # Création du dossier Tools
+    folder:
+      name: "Tools"
+      description: "Folder for miscellaneous tools."

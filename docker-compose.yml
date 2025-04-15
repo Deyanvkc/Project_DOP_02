@@ -1,5 +1,3 @@
-# Docker compose pour gérer les éxecutions des services
-version: '3'
 # Définir les services
 services:
   #Jenkins
@@ -12,10 +10,11 @@ services:
     ports:
       - "8080:8080"
     # Les volumes pour la sauvegarde des données
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs
+      #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ./my_marvin.yml:/var/jenkins_home/casc_configs/my_marvin.yml
-      - ./job_dsl.groovy:/var/jenkins_home/init.groovy.d/job_dsl.groovy
 
 volumes:
   jenkins_home:
