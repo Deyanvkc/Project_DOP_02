@@ -1,6 +1,6 @@
 jenkins:
   # Message système
-  systemMessage: "Welcome to the ChocolatinePowered Marvin Jenkins Instance."
+  systemMessage: "Welcome to the Chocolatine-Powered Marvin Jenkins Instance."
 
   # Définitions des utilisateurs en local
   securityRealm:
@@ -36,14 +36,17 @@ jenkins:
           - name: "ape"
             description: "Pedagogical team member"
             permissions:
+              - "Overall/Read"
               - "Job/Build"
               - "Job/Workspace"
+              - "Job/Read"
             entries:
               - user: "i_dont_know"
           # Role Gorilla
           - name: "gorilla"
             description: "Group Obsessively Researching Innovation Linked to Learning and Accomplishment"
             permissions:
+              - "Overall/Read"
               - "Job/Build"
               - "Job/Workspace"
               - "Job/Configure"
@@ -56,42 +59,8 @@ jenkins:
           - name: "assist"
             description: "Assistant"
             permissions:
+              - "Overall/Read"
               - "Job/Read"
               - "Job/Workspace"
             entries:
               - user: "nasso"
-
-# Configuration de l'outil Git
-tool:
-  git:
-    installations:
-      - name: git
-        home: /usr/local/bin/git
-
-# Identification par clé SSH et password SSH
-#credentials:
-  #system:
-    #domainCredentials:
-      #- credentials:
-          #- basicSSHUserPrivateKey:
-              #scope: SYSTEM
-              #id: ssh_with_passphrase_provided
-              #username: ssh_root
-              #passphrase: ${SSH_KEY_PASSWORD}
-              #description: "SSH passphrase with private key file. Private key provided"
-              #privateKeySource:
-                #directEntry:
-                  #privateKey: ${SSH_PRIVATE_KEY}
-
-# Unclassified est pour les informations globales/par défaut
-unclassified:
-  # Adresse mail de l'admin pour les notifications
-  location:
-    adminAddress: "deyan.vukic@epitech.eu"
-  # Chargement des jobs
-  jobs:
-    load: true
-    # Création du dossier Tools
-    folder:
-      name: "Tools"
-      description: "Folder for miscellaneous tools."

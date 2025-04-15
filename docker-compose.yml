@@ -1,3 +1,5 @@
+version: '3'
+
 # Définir les services
 services:
   #Jenkins
@@ -9,10 +11,10 @@ services:
     # Port d'écoute
     ports:
       - "8080:8080"
+      - "50000:50000"
+    # Renseigner le fichier environnement
+    env_file: .env
     # Les volumes pour la sauvegarde des données
-    environment:
-      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs
-      #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins_home:/var/jenkins_home
 

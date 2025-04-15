@@ -1,3 +1,8 @@
+// Création du dossier Tools
+folder('Tools') {
+    description('Folder for miscellaneous tools.')
+}
+
 // Job -> clone-repository
 job('Tools/clone-repository') {
     description('Clone a git repo with a url given as parameter')
