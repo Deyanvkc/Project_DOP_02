@@ -1,0 +1,11 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Jenkins local state
+jenkins_home/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
